@@ -1,0 +1,16 @@
+
+The data file ehact_2014.dat (2014 ATUS Eating & Health Module Activity file) contains 5 variables and 120,719 observations. 
+
+For more information on the 2014 ATUS Eating & Health Activity file, please see the 2014 ATUS Eating & Health Module Data Dictionary, available online at: http://www.bls.gov/tus/ehmintcodebk1416.pdf.   
+
+In addition to the data file, three computer programs are contained in ehact_2014.zip.  If you have SPSS, SAS, or Stata software, you may use these programs to read the data into your statistical software package.  The programs include variable and value labels for most variables.  For information about unlabeled values, please refer to the data dictionary.
+
+The file "ehact_2014.sps" reads the data into SPSS.
+
+The file "ehact_2014.sas" reads the data into SAS.
+
+The file "ehact_2014.do" reads the data into Stata.
+
+If you have SAS, SPSS, or Stata software, open the corresponding program, edit the infile (in SAS), file (in SPSS) or insheet (in Stata) statement to reference the data file on your computer, and run the program. 
+
+Citation: U.S. Department of Agriculture (USDA), Economic Research Service (ERS). 2014 Eating & Health Module: Machine-readable microdata files, supplement to the Bureau of Labor Statistics (BLS) 2014 American Time Use Survey, May 2016.

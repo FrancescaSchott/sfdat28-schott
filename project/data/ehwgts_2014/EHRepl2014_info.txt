@@ -1,0 +1,27 @@
+
+The data file ehwgts_2014.dat (2014 ATUS Eating & Health Module Replicate weights file) contains 161 variables and 11,212 records.  The variables are:  TUCASEID, and 
+EUFINLWGT001...EUFINLWGT160.  TUCASEID is defined in the ATUS 2014 Eating & Health Module Data Dictionary, 
+available at:  http://www.bls.gov/tus/ehmintcodebk1416.pdf.  EUFINLWGT001...EUFINLWGT160 are 
+replicate weights for the variable EUFINLWGT (the variable EUFINLWGT is also defined in the ATUS 2014 Eating & Health Module Data Dictionary). 
+
+In addition to the data file, three computer programs are contained in ehwgts_2014.zip. If you have SPSS, SAS, 
+or Stata software, you may use these programs to read the data into your statistical software package.  
+
+The file "ehwgts_2014.sps" reads the data into SPSS.
+
+The file "ehwgts_2014.sas" reads the data into SAS.
+
+The file "ehwgts_2014.do" reads the data into Stata.
+
+If you have SAS, SPSS, or Stata software, open the corresponding program, edit the infile (in SAS), 
+file (in SPSS) or insheet (in Stata) statement to reference the data file on your computer, and run the program.
+
+The Eating & Health Replicate weights are very similar to the ATUS replicate weights. Both are based on the replicate weights developed for the CPS. ATUS begins with the CPS 
+replicate weight after the first-stage ratio adjustment.  Each replicate is processed through all of the stages of 
+the ATUS weighting procedure.  The CPS replicate weights are based on a modified balanced half-sample method of 
+replication, developed in the 1980s by Robert Fay.
+
+For information about the replicate weights, see the publication, Technical Paper 66: 
+Current Population Survey - Design and Methodology, available at: http://www.census.gov/prod/2006pubs/tp-66.pdf.
+
+Citation: U.S. Department of Agriculture (USDA), Economic Research Service (ERS). 2014 Eating & Health Module: Machine-readable microdata files, supplement to the Bureau of Labor Statistics (BLS) 2014 American Time Use Survey, May 2016.

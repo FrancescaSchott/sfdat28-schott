@@ -1,0 +1,334 @@
+* U.S. Department of Agriculture (USDA), Economic Research Service (ERS). 2014 Eating & Health Module: Machine-readable microdata files, supplement to the Bureau of Labor Statistics (BLS) 2014 American Time Use Survey, May 2016.;
+* Edit the infile statement to reference the data file on your computer.
+*;
+
+data ehresp_2014;
+infile "c:\ehresp_2014.dat" lrecl=8192 dsd dlm="," missover firstobs=2;
+
+length TUCASEID $14 TULINENO EEINCOME1 ERBMI ERHHCH ERINCOME ERSPEMCH ERTPREAT ERTSEAT ETHGT ETWGT
+EUDIETSODA EUDRINK EUEAT EUEXERCISE EUEXFREQ EUFASTFD EUFASTFDFRQ EUFFYDAY EUFDSIT EUFINLWGT
+EUSNAP EUGENHTH EUGROSHP EUHGT EUINCLVL EUINCOME2 EUMEAT EUMILK EUPRPMEL EUSODA EUSTORES
+EUSTREASON EUTHERM EUWGT EUWIC EXINCOME1 8;
+
+input TUCASEID TULINENO EEINCOME1 ERBMI ERHHCH ERINCOME ERSPEMCH ERTPREAT ERTSEAT ETHGT ETWGT
+EUDIETSODA EUDRINK EUEAT EUEXERCISE EUEXFREQ EUFASTFD EUFASTFDFRQ EUFFYDAY EUFDSIT EUFINLWGT
+EUSNAP EUGENHTH EUGROSHP EUHGT EUINCLVL EUINCOME2 EUMEAT EUMILK EUPRPMEL EUSODA EUSTORES
+EUSTREASON EUTHERM EUWGT EUWIC EXINCOME1;
+
+label TUCASEID = "ATUS Case ID (14-digit identifier)";
+label TULINENO = "ATUS person line number";
+label EEINCOME1 = "Edited:  Last month, was your total household income before taxes more or less than (amount) per month?";
+label ERBMI = "Body mass index";
+label ERHHCH = "Change in household composition between CPS and ATUS";
+label ERINCOME = "Relationship between income and poverty threshold";
+label ERSPEMCH = "Change in spouse or unmarried partner's labor force status or full time or part time employment status between CPS and ATUS";
+label ERTPREAT = "Total amount of time spent in primary eating and drinking (in minutes)";
+label ERTSEAT = "Total amount of time spent in secondary eating (in minutes)";
+label ETHGT = "Topcode flag for height (EUHGT)";
+label ETWGT = "Topcode flag for weight (EUWGT)";
+label EUDIETSODA = "Was the soft drink diet, regular or did you have both kinds?";
+label EUDRINK = "Not including plain water, were there any other times yesterday when you were drinking any beverages?";
+label EUEAT = "Were there any times you were eating any meals or snacks yesterday, for example while you were doing something else?";
+label EUEXERCISE = "During the past 7 days, did you participate in any physical activities or exercises for fitness and health such as running, bicycling, working out in a gym, walking for exercise, or playing sports?";
+label EUEXFREQ = "How many times over the past 7 days did you take part in these activities?";
+label EUFASTFD = "Thinking back over the last 7 days, did you purchase any: prepared food from a deli, carry-out, delivery food, or fast food?";
+label EUFASTFDFRQ = "How many times in the last 7 days did you purchase: prepared food from a deli, carry-out, delivery food, or fast food?";
+label EUFFYDAY = "Did you purchase any prepared food from a deli, carry-out, delivery food, or fast food yesterday?";
+label EUFDSIT = "Which of the following statements best describes the amount of food eaten in your household in the last 30 days - enough food to eat, sometimes not enough to eat, or often not enough to eat?";
+label EUFINLWGT = "Eating and Health Module final weight";
+label EUSNAP = "In the past 30 days, did you or any member of this household receive [fill State SNAPNAME], SNAP, or food stamp benefits?";
+label EUGENHTH = "In general, would you say that your physical health was excellent, very good, good, fair, or poor?";
+label EUGROSHP = "Are you the person who usually does the grocery shopping in your household?";
+label EUHGT = "How tall are you without shoes? (in inches)";
+label EUINCLVL = "Identifies which income values were asked in EUINCOME1 and EUINCOME2";
+label EUINCOME2 = "Last month, was your total household income before taxes more or less than (amount) per month?";
+label EUMEAT = "In the last 7 days, did you prepare any meals with meat, poultry, or seafood?";
+label EUMILK = "In the last 7 days, did you drink or serve unpasteurized or raw milk?";
+label EUPRPMEL = "Are you the person who usually prepares the meals in your household?";
+label EUSODA = "Were any of the beverages soft drinks such as cola, root beer, or ginger ale?";
+label EUSTORES = "Where do you get the majority of your groceries?";
+label EUSTREASON = "What is the primary reason you shop there?";
+label EUTHERM = "Did you use a food or meat thermometer when preparing any of those meals?";
+label EUWGT = "How much do you weigh without shoes? (in pounds)";
+label EUWIC = "In the last 30 days, did you or any member of your household receive benefits from the WIC program, that is, the Women, Infants, and Children program?";
+label EXINCOME1 = "EEINCOME1: Allocation flag";
+
+proc format;
+value EEINCOMEA /*EEINCOME1*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Income > 185 percent of poverty threshold"
+ 2 = "Income < 185 percent of poverty threshold"
+ 3 = "Income = 185 percent of poverty threshold"
+;
+value ERHHCH /*ERHHCH*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Number of persons living in ATUS household > number of persons living in the CPS household at time of last CPS interview"
+ 2 = "Number of persons living in ATUS household < number of persons living in the CPS household at time of last CPS interview"
+ 3 = "Number of persons living in ATUS household = number of persons living in the CPS household at time of last CPS interview"
+;
+value ERINCOME /*ERINCOME*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Income > 185 % of poverty threshold"
+ 2 = "Income <= 185 % of poverty threshold"
+ 3 = "130 % of poverty threshold < Income < 185 % of poverty threshold"
+ 4 = "Income > 130 % of poverty threshold"
+ 5 = "Income <= 130 % of poverty threshold"
+;
+value ERSPEMCH /*ERSPEMCH*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Spouse/unmarried partner's employment status changed from full time to part time or hours vary"
+ 2 = "Spouse/unmarried partner's employment status changed from part time or hours vary to full time"
+ 3 = "Spouse/unmarried partner's labor force status changed from employed to unemployed or not in the labor force"
+ 4 = "Spouse/unmarried partner's labor force status changed from unemployed or not in the labor force to employed"
+ 5 = "Spouse/unmarried partner's employment and/or labor force status did not change"
+;
+value ETHGT /*ETHGT*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 0 = "EUHGT not topcoded or bottomcoded"
+ 1 = "EUHGT topcoded (set to maximum value)"
+ 2 = "EUGHT bottomcoded (set to minimum value)"
+;
+value ETWGT /*ETWGT*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 0 = "EUWGT not topcoded or bottomcoded"
+ 1 = "EUWGT topcoded (set to maximum value)"
+ 2 = "EUWGT bottomcoded (set to minimum value)"
+;
+value EUDRINK /*EUDRINK*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Yes"
+ 2 = "No"
+;
+value EUEAT /*EUEAT*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Yes"
+ 2 = "No"
+;
+value EUEXERCISE /*EUEXERCISE*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Yes"
+ 2 = "No"
+;
+value EUFASTFD /*EUFASTFD*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Yes"
+ 2 = "No"
+;
+value EUFFYDAY /*EUFFYDAY*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Yes"
+ 2 = "No"
+;
+value EUFDSIT /*EUFDSIT*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Enough to eat"
+ 2 = "Sometimes not enough to eat"
+ 3 = "Often not enough to eat"
+;
+value EUSNAP /*EUSNAP*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Yes"
+ 2 = "No"
+;
+value EUGENHTH /*EUGENHTH*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Excellent"
+ 2 = "Very good"
+ 3 = "Good"
+ 4 = "Fair"
+ 5 = "Poor"
+;
+value EUGROSHP /*EUGROSHP*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Yes"
+ 2 = "No"
+ 3 = "Split equally with other household member(s)"
+;
+value EUINCLVL /*EUINCLVL*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 5 = "Fiscal year 2014 poverty thresholds"
+ 6 = "Fiscal year 2015 poverty thresholds"
+;
+value EUINCOMEB /*EUINCOME2*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Income > 130 percent of poverty threshold"
+ 2 = "Income < 130 percent of poverty threshold"
+ 3 = "Income = 130 percent of poverty threshold"
+;
+value EUMEAT /*EUMEAT*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Yes"
+ 2 = "No"
+;
+value EUMILK /*EUMILK*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Yes"
+ 2 = "No"
+;
+value EUPRPMEL /*EUPRPMEL*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Yes"
+ 2 = "No"
+ 3 = "Split it equally with other household member(s)"
+;
+value EUSODA /*EUSODA*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Yes"
+ 2 = "No"
+;
+value EUSTORES /*EUSTORES*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Grocery store"
+ 2 = "Supercenter"
+ 3 = "Warehouse club"
+ 4 = "Drugstore or convenience store"
+ 5 = "Some other place"
+;
+value EUSTREASON /*EUSTREASON*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Price"
+ 2 = "Location"
+ 3 = "Quality of products"
+ 4 = "Variety of products"
+ 5 = "Customer service"
+ 6 = "Other"
+;
+value EUTHERM /*EUTHERM*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Yes"
+ 2 = "No"
+;
+value EUWIC /*EUWIC*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Yes"
+ 2 = "No"
+;
+value EXINCOMEA /*EXINCOME1*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 0 = "Value to no change"
+ 1 = "Blank to no change"
+ 2 = "Don't know to no change"
+ 3 = "Refused to no change"
+ 10 = "Value to value"
+ 11 = "Blank to value"
+ 12 = "Don't know to value"
+ 13 = "Refused to value"
+ 20 = "Value to longitudinal value"
+ 21 = "Blank to longitudinal value"
+ 22 = "Don't know to longitudinal value"
+ 23 = "Refused to longitudinal value"
+ 30 = "Value to allocated longitudinal value (unused)"
+ 31 = "Blank to allocated longitudinal value (unused)"
+ 32 = "Don't know to allocated longitudinal value (unused)"
+ 33 = "Refused to allocated longitudinal value (unused)"
+ 40 = "Value to allocated value"
+ 41 = "Blank to allocated value"
+ 42 = "Don't know to allocated value"
+ 43 = "Refused to allocated value"
+ 50 = "Value to blank"
+ 51 = "Blank to blank"
+ 52 = "Don't know to blank"
+ 53 = "Refused to blank"
+ 71 = "Don't know to assigned from respondent's earnings"
+ 72 = "Don't know to assigned from earnings of respondent's spouse or unmarried partner"
+ 73 = "Don't know to assigned from earnings of respondent's other household members (not spouse or unmarried partner)"
+ 74 = "Don't know to assigned from earnings of respondent and respondent's spouse or unmarried partner"
+ 75 = "Don't know to assigned from earnings of respondent and respondent's other household members (not spouse or unmarried partner)"
+ 76 = "Don't know to assigned from earnings of respondent's spouse or unmarried partner and respondent's other household members"
+ 77 = "Don't know to assigned from earnings of respondent, respondent's spouse or unmarried partner, and respondent's other household members"
+ 81 = "Refused to assigned from respondent's earnings"
+ 82 = "Refused to assigned from earnings of respondent's spouse or unmarried partner"
+ 83 = "Refused to assigned from earnings of respondent's other household members (not spouse or unmarried partner)"
+ 84 = "Refused to assigned from earnings of respondent and respondent's spouse or unmarried partner"
+ 85 = "Refused to assigned from earnings of respondent and respondent's other household members (not spouse or unmarried partner)"
+ 86 = "Refused to assigned from earnings of respondent's spouse or unmarried partner and respondent's other household members"
+ 87 = "Refused to assigned from earnings of respondent, respondent's spouse or unmarried partner, and respondent's other household members"
+;
+value ERBMI /*ERBMI*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+;
+value ERTPREAT /*ERTPREAT*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+;
+value ERTSEAT /*ERTSEAT*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+;
+value EUHGT /*EUHGT*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+;
+value EUWGT /*EUWGT*/
+-5 = "Respondent is pregnant"
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+;
+value EUDIETSODA /*EUDIETSODA*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Diet"
+ 2 = "Regular"
+ 3 = "Both"
+;
+run;
+proc contents data=ehresp_2014; run;

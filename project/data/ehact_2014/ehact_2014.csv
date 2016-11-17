@@ -1,0 +1,38 @@
+*U.S. Department of Agriculture (USDA), Economic Research Service (ERS). 2014 Eating & Health Module: Machine-readable microdata files, supplement to the Bureau of Labor Statistics (BLS) 2014 American Time Use Survey, May 2016.;
+* NOTE: format names are the same as variable names, except for
+        variable names that end in a number.  For these a 1 is replaced
+        by an A, a 2 is replaced by a B, and so on.
+  Edit the infile statement to reference the data file on your computer.
+*;
+
+data ehact_2014;
+infile "c:\ehact_2014.dat" lrecl=8192 dsd dlm="," missover firstobs=2;
+length TUCASEID $14 TUACTIVITY_N EUEATSUM EUEDUR EUEDUR24 8;
+
+input TUCASEID TUACTIVITY_N EUEATSUM EUEDUR EUEDUR24;
+
+label TUCASEID = "ATUS Case ID (14-digit identifier)";
+label TUACTIVITY_N = "Activity line number";
+label EUEATSUM = "Were you eating during this activity?";
+label EUEDUR = "Amount of time spent doing secondary eating during a given activity in minutes (last activity not truncated at 24 hours)";
+label EUEDUR24 = "Amount of time spent doing secondary eating during a given activity in minutes (last activity truncated at 24 hours)";
+
+proc format;
+value EUEATSUM /*EUEATSUM*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+ 1 = "Yes"
+;
+value EUEDUR /*EUEDUR*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+;
+value EUEDUR2D /*EUEDUR24*/
+-1 = "Blank"
+-2 = "Don't Know"
+-3 = "Refused"
+;
+run;
+proc contents data=ehact_2014; run;
